@@ -115,9 +115,13 @@ class MainHandler(webapp2.RequestHandler):
 
     def post(self):
         username = self.request.get('username')
+        username = cgi.escape(username, quote=True)
         password = self.request.get('password')
+        password = cgi.escape(password, quote=True)
         verify = self.request.get('verify')
+        verify = cgi.escape(verify, quote=True)
         email = self.request.get('email')
+        email = cgi.escape(email, quote=True)
 
         username_check = valid_username(username)
         pass_check =  valid_pass(password)
