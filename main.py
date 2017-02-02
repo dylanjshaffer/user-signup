@@ -90,9 +90,11 @@ def valid_username(username):
     USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
     return USER_RE.match(username)
 
+
 def valid_pass(password):
     PASS_RE = re.compile(r"^.{3,20}$")
     return PASS_RE.match(password)
+
 
 def valid_email(email):
     if email == '':
@@ -112,15 +114,14 @@ class MainHandler(webapp2.RequestHandler):
         self.write_form()
 
     def post(self):
-        username_check = valid_username(self.request.get('username'))
-        pass_check = valid_pass(self.request.get('password'))
-        email_check = valid_email(self.request.get('email'))
-
         username = self.request.get('username')
         password = self.request.get('password')
         verify = self.request.get('verify')
         email = self.request.get('email')
 
+        username_check = valid_username(username)
+        pass_check =  valid_pass(password)
+        email_check = valid_email(email)
 
         user_error = ''
         pass_error = ''
@@ -149,6 +150,5 @@ class MainHandler(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler),
-    # ('/welcome', Welcome)
+    ('/', MainHandler)
 ], debug=True)
